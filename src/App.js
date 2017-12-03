@@ -4,6 +4,7 @@ import './App.css';
 import { Container } from 'bloomer';
 import "bulma/css/bulma.css";
 import MoviesList from './MoviesList';
+import SearchBar from './SearchBar.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -31,20 +32,17 @@ class App extends Component {
       content = <MoviesList movies={this.state.movies}/>
     }
 
-    return (
-      <Container>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Rolling Banana Movies</h1>
-          <em>The best movie catalog you've ever seen</em>
-        </header>
-        <Container>
-          { content }
-        </Container>
-      </div>
-      </Container>
-    );
+    return <Container>
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Rolling Banana Movies</h1>
+            <em>The best movie catalog you've ever seen</em>
+            <SearchBar />
+          </header>
+          <Container>{content}</Container>
+        </div>
+      </Container>;
   }
 }
 
