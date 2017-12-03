@@ -11,38 +11,59 @@ class App extends Component {
     super(props);
     this.state = {
       movies: [],
-      loading: true
-    }
+      loading: true,
+      searchText: "",
+      filteredMovies: []
+    };
   }
   async componentDidMount() {
-    const results = await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed');
+    const results = await fetch(
+      "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+    );
     const data = await results.json();
     this.movies = data.results;
     this.setState({
       movies: this.movies,
-      loading: false
+      loading: false,
+      filteredMovies: this.movies
+    });
+  }
+
+  handleChange(searchText) {
+    this.setState({
+      searchText
+    });
+    var filteredMovies = this.state.movies;
+    filteredMovies = filteredMovies.filter(movie => {
+      return movie.title.toLowerCase().search(
+        searchText.toLowerCase()
+      )!== -1
     })
+    this.setState({ filteredMovies });
   }
 
   render() {
     let content;
     if (this.state.loading) {
-      content = <img id="loading" src={logo}/>
-    } else {
-      content = <MoviesList movies={this.state.movies}/>
+      content = <img id="loading" src={logo} />;
+    }
+    else {
+      content = <MoviesList movies={this.state.filteredMovies} />;
     }
 
-    return <Container>
+    return (
+      <Container>
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Rolling Banana Movies</h1>
             <em>The best movie catalog you've ever seen</em>
-            <SearchBar />
+            <SearchBar handleChange={this.handleChange.bind(this)}/>
           </header>
           <Container>{content}</Container>
         </div>
-      </Container>;
+      </Container>
+    );
   }
 }
 
