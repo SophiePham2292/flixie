@@ -5,6 +5,7 @@ import { Container } from 'bloomer';
 import "bulma/css/bulma.css";
 import MoviesList from './MoviesList';
 import SearchBar from './SearchBar.jsx';
+import Transition from "react-motion-ui-pack";
 
 class App extends Component {
   constructor(props) {
@@ -52,17 +53,23 @@ class App extends Component {
     }
 
     return (
-      <Container>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Rolling Banana Movies</h1>
-            <em>The best movie catalog you've ever seen</em>
-            <SearchBar handleChange={this.handleChange.bind(this)}/>
-          </header>
-          <Container>{content}</Container>
-        </div>
-      </Container>
+      <Transition
+        enter={{ opacity: 1, translateX: 0 }}
+        leave={{ opacity: 0.7, translateX: -200 }}
+        component={false}
+      >
+        <Container>
+          <div className="App">
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h1 className="App-title">Rolling Banana Movies</h1>
+              <em>The best movie catalog you've ever seen</em>
+              <SearchBar handleChange={this.handleChange.bind(this)}/>
+            </header>
+            <Container>{content}</Container>
+          </div>
+        </Container>
+      </Transition>
     );
   }
 }
