@@ -16,3 +16,9 @@ Time spent: ~6 hours
 [ ] Clicking on a movie poster should give you the high resolution version at a larger size in a lightbox. (med)
 [ ] Infinite scrolling (med)
 [ ] Change layouts on the fly (med)
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+![Video Walkthrough](walkthrough.gif)
